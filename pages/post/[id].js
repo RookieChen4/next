@@ -1,5 +1,8 @@
 import { getAllPostIds, getPostData } from '../../lib/posts'
 import Layout from '../../components/layout'
+import Head from 'next/head'
+import utilStyles from '../../styles/utils.module.css'
+import postStyles from '../../styles/post.module.scss'
 export async function getStaticPaths() {
   const paths = getAllPostIds()
   return {
@@ -9,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const postData = getPostData(params.id)
+  const postData = await getPostData(params.id)
   return {
     props: {
       postData
@@ -20,11 +23,20 @@ export async function getStaticProps({ params }) {
 export default function Post({ postData }) {
   return (
     <Layout>
-      {postData.title}
-      <br />
-      {postData.id}
-      <br />
-      {postData.date}
+      <Head>
+        <meta
+          name="description"
+          content="sanctuary2"
+        />
+      </Head>
+      <section className={`${utilStyles.main_container} ${postStyles.post_container}`}>
+        {postData.title}
+        <br />
+        {postData.id}
+        <br />
+        {postData.date}
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      </section>
     </Layout>
   )
 }

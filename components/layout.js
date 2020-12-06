@@ -1,19 +1,46 @@
 import Head from 'next/head'
-import styles from './layout.module.css'
+import styles from './layout.module.scss'
 import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 
 const name = 'Your Name'
 export const siteTitle = 'Next.js Sample Website'
-
+import React, { useState, useEffect } from 'react';
 export default function Layout({ children, home }) {
+  let flag = false
+  if(process.browser) {
+    flag = true
+    let beforeScrollTop = document.documentElement.scrollTop
+    function scroll() {
+      let afterScrollTop = document.documentElement.scrollTop;
+        if (afterScrollTop - beforeScrollTop > 0) {
+          document.getElementById('nav').style.background = 'white'
+          document.getElementById('Sanctuary').style.color = 'black'
+        } else {
+          document.getElementById('nav').style.background = 'none'
+          document.getElementById('Sanctuary').style.color = 'white'
+        }
+        if (afterScrollTop <= 50) {
+          document.getElementById('nav').style.background = 'none'
+          document.getElementById('Sanctuary').style.color = 'white'
+        }
+        beforeScrollTop = afterScrollTop;
+    }
+    window.addEventListener('scroll', scroll)
+    if(!home) {
+      window.removeEventListener('scroll',scroll)
+      useEffect(() => {
+        document.getElementById('Sanctuary').style.color = 'black'
+      })
+    }
+  }
   return (
     <div className={styles.container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <meta
           name="description"
-          content="Learn how to build a personal website using Next.js"
+          content="sanctuary "
         />
         <meta
           property="og:image"
@@ -23,44 +50,19 @@ export default function Layout({ children, home }) {
         />
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
+        {/* <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet"></link> */}
       </Head>
-      <header className={styles.header}>
-        {home ? (
-          <>
-            <img
-              src="/images/profile.jpg"
-              className={`${styles.headerHomeImage} ${utilStyles.borderCircle}`}
-              alt={name}
-            />
-            <h1 className={utilStyles.heading2Xl}>{name}</h1>
-          </>
-        ) : (
-          <>
-            <Link href="/">
-              <a>
-                <img
-                  src="/images/profile.jpg"
-                  className={`${styles.headerImage} ${utilStyles.borderCircle}`}
-                  alt={name}
-                />
-              </a>
-            </Link>
-            <h2 className={utilStyles.headingLg}>
-              <Link href="/">
-                <a className={utilStyles.colorInherit}>{name}</a>
-              </Link>
-            </h2>
-          </>
-        )}
+      <header>
+        <nav id="nav" className={home ? styles.nav : styles.nav2}><Link href="/"><a id="Sanctuary">Sanctuary</a></Link></nav>
       </header>
       <main>{children}</main>
-      {!home && (
+      {/* {!home && (
         <div className={styles.backToHome}>
           <Link href="/">
             <a>← Back to home</a>
           </Link>
         </div>
-      )}
+      )} */}
     </div>
   )
 }
