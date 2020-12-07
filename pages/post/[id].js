@@ -1,5 +1,5 @@
 import { getAllPostIds, getPostData } from '../../lib/posts'
-import Layout from '../../components/layout'
+import Layout from '../../components/Layout/layout'
 import Head from 'next/head'
 import utilStyles from '../../styles/utils.module.css'
 import postStyles from '../../styles/post.module.scss'
@@ -22,7 +22,7 @@ export async function getStaticProps({ params }) {
 
 export default function Post({ postData }) {
   return (
-    <Layout>
+    <Layout home={false}>
       <Head>
         <meta
           name="description"
