@@ -16,7 +16,7 @@ export default function header({ home }) {
     }
     useEffect(() => {
       if(home) {
-        setFlag(true);
+        scroll()
         window.addEventListener('scroll', scroll,true)
       }else {
         setFlag(false);
