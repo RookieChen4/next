@@ -32,7 +32,7 @@ export default function Post({ postData }) {
       <section className={`${utilStyles.main_container} ${postStyles.post_container}`}>
         {postData.title}
         <br />
-        {postData.id}
+        {/* {postData.id} */}
         <br />
         {postData.date}
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />

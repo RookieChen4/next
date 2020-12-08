@@ -10,6 +10,10 @@
     padding: 1.5rem 2rem;
     border-bottom: 1px solid rgba(178,186,194,.15);
 }
+
+.listItem a {
+    color: black;
+}
 .listItem:hover {
     box-shadow: 0 3px 5px 0 rgba(0,0,0,.09);
 }
@@ -24,3 +28,14 @@
     height: 5rem;
     background-size: cover;
 }
+
+.loadingContainer {
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    background: #FF5F6D;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FFC371, #FF5F6D); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  }
