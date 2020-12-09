@@ -37,7 +37,7 @@ export default function Home({ allPostsData }) {
       </section>
       <section className={utilStyles.main_container}>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
+          {allPostsData.map(({ id, date, title, face }) => (
             <li className={utilStyles.listItem} key={id}>
             <div className={utilStyles.item_container}>
               <article>
@@ -49,7 +49,7 @@ export default function Home({ allPostsData }) {
                   <Date dateString={date} />
                 </small>
               </article>
-              <img className={utilStyles.list_image} src="/images/profile.jpg" />
+              <img className={utilStyles.list_image} src={face} />
             </div>
           </li>
           ))}
