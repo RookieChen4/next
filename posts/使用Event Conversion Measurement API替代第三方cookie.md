@@ -1,3 +1,8 @@
+---
+title: '使用Event Conversion Measurement API替代第三方cookie'
+date: '2021-04-07'
+face: '/images/original.jpg'
+---
 Event Conversion Measurement API可以将用户在广告发布网站上的事件与在广告客户网站上的后续事件建立关联，并且不需要如第三方cookie的机制用于跨站点识别用户。
 # 概览
 - 目前该api只能支持点击事件，在后续的迭代中可能会支持用户的浏览事件。因为记录用户的浏览事件很难做到真正意义上的隐私保护，目前还不支持。
