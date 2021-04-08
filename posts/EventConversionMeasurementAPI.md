@@ -4,29 +4,34 @@ date: '2021-04-07'
 face: '/images/original.jpg'
 ---
 Event Conversion Measurement API可以将用户在广告发布网站上的事件与在广告客户网站上的后续事件建立关联，并且不需要如第三方cookie的机制用于跨站点识别用户。
+
 # 概览
 - 目前该api只能支持点击事件，在后续的迭代中可能会支持用户的浏览事件。因为记录用户的浏览事件很难做到真正意义上的隐私保护，目前还不支持。
+
 ## 如何运作
 
 ![Xn96AVosulGisR6Hoj4J.jpg](https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/be3c8607db5a44b4ad5c7c6e5d998e06~tplv-k3u1fbpfcp-watermark.image)
-图片上方除了用户外有三个角色
-- adtech.example 广告服务的提供者
-- news.example 广告的发布者（如新闻网站一类的高流量网站）
-- shoes.example 购买广告服务的网站（如一些商场网站）
-1. 首先用户在news.example网站时会加载adtech.example的脚本，这个脚本会加载一个iframe或者a标签用来展示广告。（生成的a标签会带有一些特定的属性，下面会详细的列出）
-2. 用户点击这个广告后浏览器会记录下这个事件，并将a标签上特定的属性一并记录下来。
-3. 用户点击这个广告之后会跳转到shoes.example这个网站，当然也可能退出之后一段时间之后浏览该网站。
-4. 在shoes.example网站用户会做一些操作，adtech.example认定某些操作可以计算广告转化率如登录，购买。那么shoes.example网站就会针对这些事件做一些埋点，当用户触发这些行为后会通知adtech.example具体的事件，然后adtech.example会请求浏览记录这次转化报告，这次报告包含了adtech.example传给浏览器想要记录的数据。
-5. 浏览器会在截止日期前将报告上报给adtech.example
-如上文使用该api,a标签可以配置一些特定的属性
-- impressiondata：自定义的数据，如点击事件的ID或公司的ID
-- conversiondestination：预计将为此广告进行转化的网站（如shoes.example）。
-- reportingorigin：转换成功后应通知的报告端点（如adtech.example）。
-- impressionexpiry：为了隐私的安全，浏览器不会立即上传报告，这个属性设置了无法再为此广告计算转化的截止日期和时间。
+
+  图片上方除了用户外有三个角色
+  - adtech.example 广告服务的提供者
+  - news.example 广告的发布者（如新闻网站一类的高流量网站）
+  - shoes.example 购买广告服务的网站（如一些商场网站）
+  1. 首先用户在news.example网站时会加载adtech.example的脚本，这个脚本会加载一个iframe或者a标签用来展示广告。（生成的a标签会带有一些特定的属性，下面会详细的列出）
+  2. 用户点击这个广告后浏览器会记录下这个事件，并将a标签上特定的属性一并记录下来。
+  3. 用户点击这个广告之后会跳转到shoes.example这个网站，当然也可能退出之后一段时间之后浏览该网站。
+  4. 在shoes.example网站用户会做一些操作，adtech.example认定某些操作可以计算广告转化率如登录，购买。那么shoes.example网站就会针对这些事件做一些埋点，当用户触发这些行为后会通知adtech.example具体的事件，然后adtech.example会请求浏览记录这次转化报告，这次报告包含了adtech.example传给浏览器想要记录的数据。
+  5. 浏览器会在截止日期前将报告上报给adtech.example
+  如上文使用该api,a标签可以配置一些特定的属性
+  - impressiondata：自定义的数据，如点击事件的ID或公司的ID
+  - conversiondestination：预计将为此广告进行转化的网站（如shoes.example）。
+  - reportingorigin：转换成功后应通知的报告端点（如adtech.example）。
+  - impressionexpiry：为了隐私的安全，浏览器不会立即上传报告，这个属性设置了无法再为此广告计算转化的截止日期和时间。
+
 # 实现细节
+
 - 首先在news.example网站加载adtech.example的脚本
 `script(src=adScriptUrl)`
-```js
+```
 // adtech.example
 app.get('/ad-script', (req, res) => {
   res.set('Content-Type', 'text/javascript')
@@ -119,3 +124,5 @@ conversiondestination 将会发生转化的地址，reportingorigin 浏览器发
 # 思考
 
 Event Conversion Measurement 通过浏览器关联跨站点的用户行为，通过记录数据的限制和数据的干扰和延迟发送尽可能的保护用户的隐私。但对于广告商无法实时的计算广告的转化率和获取更多的用户行为数据，不知道这将会对现有的淘宝联盟造成什么样的影响。还是说会有另外的方法替代第三方cookie。
+
+[掘金地址](https://juejin.cn/post/6948344934374047780)
