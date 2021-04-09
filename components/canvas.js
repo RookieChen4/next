@@ -79,14 +79,14 @@ export default function canvas() {
         list[i] = p;
         }
 
-        // canvas.addEventListener( 'mousemove', function(e) {
+        canvas.addEventListener( 'mousemove', function(e) {
 
-        // let bounds = canvas.getBoundingClientRect();
-        // mx = e.clientX - bounds.left;
-        // my = e.clientY - bounds.top;
-        // man = true;
+        let bounds = canvas.getBoundingClientRect();
+            mx = e.clientX - bounds.left;
+            my = e.clientY - bounds.top;
+            man = true;
 
-        // });
+        });
 
         // if ( typeof Stats === 'function' ) {
         // document.body.appendChild( ( stats = new Stats() ).domElement );
