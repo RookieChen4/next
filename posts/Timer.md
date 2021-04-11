@@ -1,5 +1,5 @@
 ---
-title: 'Hi! I am Cjh'
+title: '如何在js中使用一个准确的timer'
 date: '2021-04-11'
 face: '/images/original.jpg'
 ---
